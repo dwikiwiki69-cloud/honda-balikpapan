@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulasi Kredit - Honda Dealer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <a href="/" class="btn-back">&larr; Beranda</a>
+        <div class="logo">HONDA</div>
+    </header>
+
+    <main class="container">
+        <section class="calculator-card">
+            <h2>Simulasi Kredit</h2>
+            <p class="subtitle">Hitung estimasi cicilan bulanan mobil pilihan Anda.</p>
+
+            <div class="form-group">
+                <label>Harga Mobil (OTR)</label>
+                      <!-- Ubah type menjadi text agar bisa menampilkan titik format Rupiah -->
+                 <input type="text" id="harga_otr" value="180.000.000" class="input-field">
+            </div>
+
+            <div class="form-group">
+                <label>Uang Muka / DP (%)</label>
+                <input type="number" id="dp_persen" value="20" min="10" max="90" class="input-field">
+                <small id="dp_nominal_text">Nominal DP: Rp 36.000.000</small>
+            </div>
+
+            <div class="form-group">
+                <label>Tenor (Tahun)</label>
+                <select id="tenor" class="input-field">
+                    <option value="1">1 Tahun (12 Bulan)</option>
+                    <option value="2">2 Tahun (24 Bulan)</option>
+                    <option value="3">3 Tahun (36 Bulan)</option>
+                    <option value="4">4 Tahun (48 Bulan)</option>
+                    <option value="5" selected>5 Tahun (60 Bulan)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Pilihan Leasing</label>
+                <select id="leasing" class="input-field">
+                    {% for l in leasing %}
+                    <option value="{{ l.suku_bunga }}">{{ l.nama_leasing }} (Bunga {{ l.suku_bunga }}%)</option>
+                    {% else %}
+                    <option value="4.5">BCA Finance (Bunga 4.5%)</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="result-box">
+                <p>Estimasi Cicilan per Bulan</p>
+                <h3 id="hasil_cicilan">Rp 0 / bulan</h3>
+            </div>
+
+            <a href="/sales" class="btn-wa">Lanjut Nego via WA &rarr;</a>
+        </section>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

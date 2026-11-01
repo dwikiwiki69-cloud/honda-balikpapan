@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail {{ mobil.nama_mobil }} - Honda Dealer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="navbar">
+        <a href="/" class="btn-back">&larr; Beranda</a>
+        <div class="logo">HONDA</div>
+        <div class="menu-icon">&#9776;</div>
+    </header>
+
+    <main class="container">
+        <!-- Visual Gambar Mobil dari Database -->
+        <section class="detail-image-box">
+            <img src="{{ url_for('static', filename='img/' + mobil.foto_url) }}" 
+                 alt="{{ mobil.nama_mobil }}" 
+                 onerror="this.src='https://via.placeholder.com/300x180?text=Honda'">
+        </section>
+
+        <!-- Informasi Mobil dari Database -->
+        <section class="detail-info">
+            <span class="stock-badge">&bull; Ready stock</span>
+            <h2>{{ mobil.nama_mobil }}</h2>
+            <h3 class="detail-price">Rp {{ "{:,.0f}".format(mobil.harga_otr).replace(',', '.') }} <span>OTR</span></h3>
+
+            <!-- Grid Spesifikasi Singkat -->
+            <div class="spec-grid">
+                <div class="spec-item">
+                    <span class="spec-icon">📋</span>
+                    <strong>{{ mobil.spesifikasi }}</strong>
+                    <small>Spesifikasi Utama</small>
+                </div>
+            </div>
+
+            <div class="description">
+                <h4>Performa & Kenyamanan Terbaik</h4>
+                <p>Nikmati pengalaman berkendara modern dengan teknologi canggih dan efisiensi bahan bakar optimal dari Honda.</p>
+            </div>
+        </section>
+
+        <div class="bottom-cta">
+            <a href="/simulasi" class="btn-primary-red">Hitung Cicilan &rarr;</a>
+        </div>
+    </main>
+</body>
+</html>

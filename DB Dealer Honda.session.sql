@@ -1,0 +1,1 @@
+UPDATE mobil SET foto_url = 'Honda BR-V N7X Edition.jpg' WHERE nama_mobil = 'Honda BR-V N7X Edition';

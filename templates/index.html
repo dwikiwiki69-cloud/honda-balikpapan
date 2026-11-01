@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Honda Dealer - The Power of Dreams</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <!-- BARIS FAVICON (TAMBAHKAN KODE INI) -->
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/download.png') }}">
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Top Navigation Header -->
+    <header class="navbar">
+        <div class="logo">HONDA</div>
+        <div class="menu-icon">&#9776;</div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero-banner">
+            <span class="badge">Promo Spesial Bulan Ini</span>
+            <h2>New Honda HR-V</h2>
+            <p>Lebih percaya diri di setiap perjalanan.</p>
+        </section>
+
+        <!-- Catalog Section -->
+        <section class="catalog-section">
+            <div class="section-header">
+                <h3>Katalog Mobil</h3>
+            </div>
+
+            <div class="car-grid">
+                {% for m in mobil %}
+                <div class="car-card">
+                    <div class="car-image-placeholder">
+                        <img src="{{ url_for('static', filename='img/' + m.foto_url) }}" alt="{{ m.nama_mobil }}" onerror="this.src='https://via.placeholder.com/150x100?text=Honda'">
+                    </div>
+                    <h4>{{ m.nama_mobil }}</h4>
+                    <p class="price">Mulai dari Rp {{ "{:,.0f}".format(m.harga_otr).replace(',', '.') }}</p>
+                    <a href="/detail?id={{ m.id_mobil }}" class="btn-detail">Lihat Detail &rarr;</a>
+                </div>
+                {% else %}
+                <p>Belum ada mobil yang tersedia.</p>
+                {% endfor %}
+            </div>
+        </section>
+    </main>
+</body>
+</html>
