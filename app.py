@@ -1,18 +1,27 @@
-from flask import Flask, render_template, request  # <-- Tambahkan 'request'
+from flask import Flask, render_template, request
 import psycopg2
 import psycopg2.extras
+import os
 
 app = Flask(__name__)
 
 def get_db_connection():
-    return psycopg2.connect(
-        host="localhost",
-        database="db_honda",
-        user="postgres",
-        password="dw274305",  # Ganti dengan password PostgreSQL Anda
-        port=5432,
-        client_encoding='utf8'
-    )
+    # Mengambil nilai pemboleh ubah persekitaran DATABASE_URL dari Vercel
+    database_url = os.environ.get('DATABASE_URL')
+    
+    if database_url:
+        # Jika pautan awan wujud (di pelayan Vercel), gunakan ini
+        return psycopg2.connect(database_url)
+    else:
+        # Jika tiada (di localhost laptop), gunakan pangkalan data tempatan
+        return psycopg2.connect(
+            host="localhost",
+            database="db_honda",
+            user="postgres",
+            password="dw274305", # Ganti dengan password PostgreSQL Anda
+            port=5432,
+            client_encoding='utf8'
+        )
 
 @app.route('/')
 def home():
@@ -24,7 +33,6 @@ def home():
     conn.close()
     return render_template('index.html', mobil=katalog_mobil)
 
-# --- PERBAIKAN ROUTE DETAIL ---
 @app.route('/detail')
 def detail():
     id_mobil = request.args.get('id', type=int)
